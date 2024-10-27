@@ -1,0 +1,25 @@
+-- Configuration
+local teleportHeight = 10000 -- Height to teleport to
+
+-- Function to teleport the player high into the sky
+local function teleportHigh()
+    local player = game.Players.LocalPlayer
+    if player and player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
+        player.Character.HumanoidRootPart.CFrame = player.Character.HumanoidRootPart.CFrame + Vector3.new(0, teleportHeight, 0)
+    end
+end
+
+-- Function to rejoin the game
+local function rejoinGame()
+    game:GetService("TeleportService"):Teleport(game.PlaceId, game.Players.LocalPlayer)
+end
+
+-- Key press detection for "H" to trigger rejoin and "G" to teleport high
+local userInputService = game:GetService("UserInputService")
+userInputService.InputBegan:Connect(function(input)
+    if input.KeyCode == Enum.KeyCode.H then
+        rejoinGame()
+    elseif input.KeyCode == Enum.KeyCode.G then
+        teleportHigh()
+    end
+end)
